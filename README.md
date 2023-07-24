@@ -2,6 +2,9 @@
 # update
 - fix for cordova-android@10
 
+## install
+- cordova plugin add https://github.com/CaiYansong/cordova-plugin-code-push.git#release/1.11.20
+
 # ---
 
 UPDATE: Over the next few months, we will be working on a new version of CodePush that will address some of the most common performance issues our customers are facing. This updated version will allow a better experience, our team to better support CodePush moving forward and have a faster development cycle for new features. 
