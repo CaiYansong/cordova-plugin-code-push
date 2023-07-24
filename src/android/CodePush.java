@@ -420,7 +420,7 @@ public class CodePush extends CordovaPlugin {
         CodePushPackageMetadata deployedPackageMetadata = this.codePushPackageManager.getCurrentPackageMetadata();
         if (deployedPackageMetadata != null && deployedPackageMetadata.localPath != null) {
             File startPage = this.getStartPageForPackage(deployedPackageMetadata.localPath);
-            if (startPage != null && this.isMainBundleActivity()) {
+            if (startPage != null) {
                 /* file exists */
                 try {
                     navigateToFile(startPage);
@@ -429,12 +429,6 @@ public class CodePush extends CordovaPlugin {
                 }
             }
         }
-    }
-
-    private boolean isMainBundleActivity() {
-        final String activityPackage = this.cordova.getActivity().getClass().getPackage().getName();
-        final String contextPackage = this.cordova.getContext().getPackageName();
-        return contextPackage.contains(activityPackage);
     }
 
     private boolean execPreInstall(CordovaArgs args, CallbackContext callbackContext) {
@@ -574,10 +568,9 @@ public class CodePush extends CordovaPlugin {
     }
 
     private String getConfigLaunchUrl() {
-        // ConfigXmlParser parser = new ConfigXmlParser();
-        // parser.parse(this.cordova.getActivity());
-        // return parser.getLaunchUrl();
-        return "index.html";
+        ConfigXmlParser parser = new ConfigXmlParser();
+        parser.parse(this.cordova.getActivity());
+        return parser.getLaunchUrl();
     }
 
     /**
