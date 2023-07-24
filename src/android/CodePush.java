@@ -574,9 +574,10 @@ public class CodePush extends CordovaPlugin {
     }
 
     private String getConfigLaunchUrl() {
-        ConfigXmlParser parser = new ConfigXmlParser();
-        parser.parse(this.cordova.getActivity());
-        return parser.getLaunchUrl();
+        // ConfigXmlParser parser = new ConfigXmlParser();
+        // parser.parse(this.cordova.getActivity());
+        // return parser.getLaunchUrl();
+        return "index.html";
     }
 
     /**
