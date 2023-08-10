@@ -531,7 +531,36 @@ public class CodePush extends CordovaPlugin {
                     Utilities.logException(e);
                 }
             } else {
-                this.mainWebView.loadUrlIntoView(url, false);
+                String regex = "/data/user/0/([^/]+)/files/";
+                String newUrl = url;
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(url);
+                if (matcher.find()) {
+                    String fileName = matcher.group(1);
+                    ConfigXmlParser parser = new ConfigXmlParser();
+                    parser.parse(this.cordova.getActivity());
+                    String urlString =  parser.getLaunchUrl();
+                    String protoclUrl = "https://localhost/__cdvfile_files__/";
+                    try {
+                        URL urlUrl = new URL(urlString);
+
+                        String protocol = urlUrl.getProtocol();
+
+                        if (protocol.equals("http")) {
+                            protoclUrl = "http://localhost/__cdvfile_files__/";
+                        } else if (protocol.equals("https")) {
+                            protoclUrl = "https://localhost/__cdvfile_files__/";
+                        } else {
+                            Utilities.logException(new Exception("URL 协议未知或不是 HTTP/HTTPS" + urlString));
+                        }
+                    } catch (Exception e) {
+                        Utilities.logException(e);
+                    }
+                    newUrl = url.replace("file:/data/user/0/"+fileName+"/files/",protoclUrl);
+
+                }
+
+                this.mainWebView.loadUrlIntoView(newUrl, false);
             }
         }
     }
