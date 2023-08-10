@@ -32,6 +32,9 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Date;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.net.URL;
+import java.util.regex.Pattern;
 
 /**
  * Native Android CodePush Cordova Plugin.
